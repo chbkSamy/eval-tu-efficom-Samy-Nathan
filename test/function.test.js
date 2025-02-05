@@ -93,3 +93,59 @@ describe("When I process a purchase", () => {
       });
 
 });
+
+describe("When IgeneratePassword", () => {
+
+    test("When I generate a password with less than 6 characters then it should return an error", () => {
+        expect(() => generatePassword(5)).toThrow(Error('Length must be a number greater than or equal to 6'));
+    });
+
+    test("When I generate a password with more than 6 characters then it should return the password", () => {
+        const password = generatePassword(7);
+        expect(password.length).toBeGreaterThanOrEqual(6);
+    });
+
+    test("When I generate a password with uppercase characters then it should return the password with only uppercase characters", () => {
+        const password = generatePassword(7, {  uppercase: true, numbers: false, specialChars: false});
+        expect(password).not.toMatch(/[!@#$%^&*()_+[]{}|;:,.<>?]/,/[0-9]/);
+    });
+
+    test("When I generate a password with numbers then it should return the password with only numbers", () => {
+        const password = generatePassword(7, { uppercase: false, numbers: true, specialChars: false});
+        expect(password).not.toMatch(/[!@#$%^&*()_+[]{}|;:,.<>?]/,/[A-Z]/);
+    });
+
+    test("When I generate a password with special characters then it should return the password whith only special characters", () => {
+        const password = generatePassword(7, {  uppercase: false, numbers: false, specialChars: true});
+        expect(password).not.toMatch(/[0-9]/,/[A-Z]/);
+    });
+
+    test("When I generate a password without uppercase, numbers and special characters then it should return the password without uppercase, numbers and special characters", () => {
+        const password = generatePassword(7, {  uppercase: false, numbers: false, specialChars: false});
+        expect(password).not.toMatch(/[!@#$%^&*()_+[]{}|;:,.<>?]/,/[0-9]/,/[A-Z]/);
+    })
+
+    test("When I generate a password with uppercase and numbers  then it should return the password with uppercase and numbers", () => {
+        const password = generatePassword(7, {  uppercase: true, numbers: true, specialChars: false});
+        expect(password).not.toMatch(/[!@#$%^&*()_+[]{}|;:,.<>?]/);
+
+    })
+
+    test("When I generate a password with uppercase and special characters then it should return the password with uppercase and special characters", () => {
+        const password = generatePassword(7, {  uppercase: true, numbers: false, specialChars: true});
+        expect(password).not.toMatch(/[0-9]/);
+    })
+
+    test("When I generate a password with numbers and special characters then it should return the password with numbers and special characters", () => {
+        const password = generatePassword(7, {  uppercase: false, numbers: true, specialChars: true});
+        expect(password).not.toMatch(/[A-Z]/);
+    })
+
+    test("When I generate a password with uppercase, numbers and special characters then it should return the password with uppercase, numbers and special characters", () => {
+
+        expect(generatePassword(7, {  uppercase: true, numbers: true, specialChars: true}).match(/[!@#$%^&*()_+[]{}|;:,.<>?]/,/[0-9]/,/[A-Z]/));
+
+    })
+
+
+});

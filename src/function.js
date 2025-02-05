@@ -44,7 +44,7 @@ function sendNotification(message) {
  * Process purchase of cart after calculating total price and notificate it in the console.
  * @param {Number[]} cart array of price
  * @param {Number} taxRate rate of taxes
- * @returns {Number} total price 
+ * @returns {Number} total price
  */
 function processPurchase(cart, taxRate) {
     const totalPrice = calculateTotalPrice(cart, taxRate);
@@ -66,15 +66,12 @@ function generatePassword(length, options = { uppercase: true, numbers: true, sp
     const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const numberChars = '0123456789';
     const specialChars = '!@#$%^&*()_+[]{}|;:,.<>?';
-    
+
     let charPool = lowercaseChars;
     if (options.uppercase) charPool += uppercaseChars;
     if (options.numbers) charPool += numberChars;
     if (options.specialChars) charPool += specialChars;
-    
-    if (charPool.length === 0) {
-        throw new Error('At least one character type must be enabled');
-    }
+
 
     let password = '';
     for (let i = 0; i < length; i++) {
