@@ -76,3 +76,20 @@ describe("When I send a notification", () => {
         jest.restoreAllMocks();
     });
 });
+
+describe("When I process a purchase", () => {
+
+    test('when I process a purchase then it calculate total, send notification, and return total', () => {
+
+
+        jest.spyOn(console, "log").mockImplementation(() => {});
+        const cart = [10, 50]
+        const taxRate = 1.20
+        const totalPrice = calculateTotalPrice(cart, taxRate);
+        processPurchase(cart, taxRate)
+        expect(console.log).toHaveBeenCalledWith(`Notification envoyée : Votre total est de ${totalPrice.toFixed(2)} €`);
+
+        jest.restoreAllMocks();
+      });
+
+});
