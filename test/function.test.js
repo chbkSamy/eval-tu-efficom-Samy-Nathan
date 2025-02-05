@@ -12,11 +12,11 @@ describe("When I Check if it is even a number", () => {
 });
 
     test("When I return a string then it should throw an error", () => {
-        expect(() => isEven("pr")).toThrow(new Error("Input must be a number"));
+        expect(() => isEven("pr")).toThrow(Error("Input must be a number"));
     });
 
     test("When I return null then it should throw an error", () => {
-        expect(() => isEven(null)).toThrow(new Error("Input must be a number"));
+        expect(() => isEven(null)).toThrow(Error("Input must be a number"));
     });
 
     test("When I return an even negative number then it should return true", () => {
@@ -67,4 +67,12 @@ describe("When I calculate the total price of the cart", () => {
 
 describe("When I send a notification", () => {
 
+    test("When I send a message then it return the  message", () => {
+        const message = "test";
+        jest.spyOn(console, "log").mockImplementation(() => {});
+        sendNotification(message);
+        expect(console.log).toHaveBeenCalledWith(`Notification envoyée : ${message}`);
+
+        jest.restoreAllMocks();
+    });
 });
